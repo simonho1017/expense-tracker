@@ -22,7 +22,7 @@ app.set('view engine', 'hbs')
 
 // 設定首頁路由
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.render('index')
 })
 
 // 設定 port 3000
