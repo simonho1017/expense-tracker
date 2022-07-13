@@ -5,8 +5,17 @@ const recoderSchema = new Schema({
     type: String, // 資料型別是字串
     required: true // 這是個必填欄位
   },
-  done: {
-    type: Boolean
+  date: {
+    type: date,
+    required:true
+  },
+  category:{
+    type:String,
+    required:true
+  },
+  amount:{
+    type:String,
+    required:true
   }
 })
-module.exports = mongoose.model('Todo', todoSchema)
+module.exports = mongoose.model('Recoder', todoSchema)
