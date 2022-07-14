@@ -7,19 +7,28 @@
       <option value="3">Three</option>
     </select>
     <p>totalAmount</p>
-    <h1 class="text-center">4500 <span></span></h1>
+    <h1 class="text-center" class="totalAmount" id="totalAmount">{{sum}} <span></span></h1>
     <table class="table">
       <tbody>
+        {{#each recoders}}
         <tr>
           <td scope="row"><i class="fa-solid fa-house fa-2xl"></i></td>
-          <td>Lunch <br>2022.04.12</td>
+          <td>{{this.name}} <br>{{this.date}}</td>
           <td>
-            <h2>60</h2>
+            <h2 class="amount" id="amount">{{this.amount}}</h2>
           </td>
-          <td><a href="" class="btn btn-primary">edit</a><br></td>
-          <td><a href="" class="btn btn-danger">delete</a></td>
+          <td>
+            <form action="/news/{{this._id}}/edit" method="post"><button class="btn btn-primary"
+                type="submit">Edit</button>
+          </td>
+          <td>
+            <form action="/news/{{this._id}}/delete" method="post"><button class="btn btn-danger"
+                type="submit">Delete</button>
+            </form>
+          </td>
           </td>
         </tr>
+        {{/each}}
       </tbody>
 
     </table>

@@ -25,6 +25,7 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static('public'))
 
 app.use(routes)
 
@@ -33,14 +34,6 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.get('/new', (req, res) => {
-  res.render('new')
-})
-
-app.post('/new', (req, res) => {
-  const select = req.body.select
-  console.log(select)
-})
 
 
 // 設定 port 3000
