@@ -9,20 +9,22 @@ const recoderSchema = new Schema({
     type: String,
     required: true
   },
-  category: {
-    type: String,
+  categoryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    index: true,
     required: true
   },
   amount: {
     type: Number,
     required: true
   },
-  icon:{
-    type: Schema.Types.ObjectId,
-    ref: 'Category',
-    index: true,
-    required: true
-  }
+  // icon:{
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Category',
+  //   index: true,
+  //   required: true
+  // }
 })
 
 module.exports = mongoose.model('Recoder', recoderSchema)

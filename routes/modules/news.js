@@ -2,19 +2,24 @@
 const express = require('express')
 const router = express.Router()
 const Recoder = require('../../models/recoder')
+const Category = require('../../models/category')
+
+
 // 引用 Todo model
 // const Todo = require('../../models/todo')
 // 定義首頁路由
 
 router.get('/', (req, res) => {
-  res.render('new')
+  Category.find()
+  .lean()
+  .then(categories =>  res.render('new',{categories}))
 })
 
 router.post('/', (req, res) => {
-  const { name, date, category, amount
+  const { name, date, categoryId, amount
   } = req.body
   Recoder.create({
-    name, date, category, amount
+    name, date, categoryId, amount
   })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
@@ -22,6 +27,7 @@ router.post('/', (req, res) => {
 
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
+  
 
   return Recoder.findById(id)
     .lean()
@@ -32,13 +38,13 @@ router.get('/:id/edit', (req, res) => {
 
 router.post('/:id/edit', (req, res) => {
   const id = req.params.id
-  const { name, date, category, amount
+  const { name, date, categoryId, amount
   } = req.body
   return Recoder.findById(id)
     .then(recoder => {
       recoder.name = name
       recoder.date = date
-      recoder.category = category
+      recoder.categoryId = categoryId
       recoder.amount = amount
       return recoder.save()
     })

@@ -12,13 +12,13 @@
           <span class="input-group-text">Date</span> <input type="Date" id="date" name="date" class="form-control"
             value="" min="2022-01-01" max="2099-12-31" required pattern="\d{4}-\d{2}-\d{2}">
         </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Category</span><select class="form-select" name="category" id="category"
+        <div class="input-group mb-3"> 
+          <span class="input-group-text">Category</span><select class="form-select" name="categoryId" id="categoryId"
             aria-label="Example select with button addon">
             <option selected>Choose...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {{#each categories}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
           </select>
         </div>
         <div class="input-group mb-3">

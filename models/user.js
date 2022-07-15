@@ -6,4 +6,4 @@ const userSchema = new Schema({
     required: true // 這是個必填欄位
   }
 })
-module.exports = mongoose.model('User', todoSchema)
+module.exports = mongoose.model('User', userSchema)
