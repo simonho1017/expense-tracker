@@ -3,11 +3,11 @@ const express = require('express')
 const router = express.Router()
 // 準備引入路由模組
 const home = require('./modules/home')
-const news = require('./modules/new')
+const news = require('./modules/news')
 // 將網址結構符合 / 字串的 request 導向 home 模組 
 router.use('/', home)
 
-router.use('/new', news)
+router.use('/news', news)
 
 
 

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const DateOnly = require('mongoose-dateonly')(mongoose);
 const Schema = mongoose.Schema
 const recoderSchema = new Schema({
   name: {
@@ -7,7 +6,7 @@ const recoderSchema = new Schema({
     required: true // 這是個必填欄位
   },
   date: {
-    type: DateOnly,
+    type: String,
     required: true
   },
   category: {
@@ -17,6 +16,13 @@ const recoderSchema = new Schema({
   amount: {
     type: Number,
     required: true
+  },
+  icon:{
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    index: true,
+    required: true
   }
 })
+
 module.exports = mongoose.model('Recoder', recoderSchema)

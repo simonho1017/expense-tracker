@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
     .lean()
     .then(function (recoders) {
       let sum = Number("")
-      console.log(recoders)
       for (let i = 0; i < recoders.length; i++) {
         sum += Number(recoders[i].amount)
       }

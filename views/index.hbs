@@ -18,11 +18,10 @@
             <h2 class="amount" id="amount">{{this.amount}}</h2>
           </td>
           <td>
-            <form action="/news/{{this._id}}/edit" method="post"><button class="btn btn-primary"
-                type="submit">Edit</button>
+            <a class="btn btn-primary" href="/news/{{this._id}}/edit">Edit</a>
           </td>
           <td>
-            <form action="/news/{{this._id}}/delete" method="post"><button class="btn btn-danger"
+            <form action="/news/{{this._id}}/delete" method="POST"><button class="btn btn-danger"
                 type="submit">Delete</button>
             </form>
           </td>
@@ -32,6 +31,6 @@
       </tbody>
 
     </table>
-    <a class="block m-auto btn btn-warning " href="/new">Add new account</a>
+    <a class="block m-auto btn btn-warning " href="/news">Add new account</a>
   </div>
 </div>
