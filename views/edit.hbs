@@ -1,7 +1,7 @@
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
-      <h1 class="text-center mt-3">Login</h1>
+      <h1 class="text-center mt-3">修改</h1>
 
       <form action="/news/{{recoder._id}}/edit" method="POST">
         <div class="input-group mb-3">
@@ -13,12 +13,12 @@
             value="{{recoder.date}}" min="2022-01-01" max="2099-12-31">
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text">Category</span><select class="form-select" name="categoryId" id="categoryId"
-            aria-label="Example select with button addon" value="{{recoder.categoryId}}">
-            <option selected value="{{recoder.categoryId}}"></option>
-            <option selected value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <span class="input-group-text">Category</span><select class="form-select" name="category" id="category"
+            aria-label="Example select with button addon">
+            <option>Choose...</option>
+            {{#if recoder.categoryId.name}}<option selected value="{{recoder.categoryId.name}}">
+              {{recoder.categoryId.name}}</option>{{/if}}
+            {{#each Noselectcategory}}<option value="{{this}}">{{this}}</option>{{/each}}
           </select>
         </div>
         <div class="input-group mb-3">

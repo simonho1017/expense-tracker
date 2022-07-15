@@ -1,29 +1,34 @@
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
-    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-      <option selected>Open this select menu</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <p>totalAmount</p>
-    <h1 class="text-center" class="totalAmount" id="totalAmount">{{sum}} <span></span></h1>
+    <form action="/home/select" type="submit">
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example "
+        onChange="location = this.options[this.selectedIndex].value;">
+        <option selected>Open this select menu</option>
+        <option value="home/1">家居物業</option>
+        <option value="home/2">交通出行</option>
+        <option value="home/3">休閒娛樂</option>
+        <option value="home/4">餐飲食品</option>
+        <option value="home/5">其他</option>
+      </select>
+    </form>
+    <h3 class="text-center bg-primary text-white">totalAmount</h3>
+    <h1 class="text-center bg-warning text-dark" class="totalAmount" id="totalAmount">{{sum}} <span></span></h1>
     <table class="table">
       <tbody>
         {{#each recoders}}
         <tr>
-          <td scope="row"><i class="{{this.categoryId.icon}}"></i></td>
+          <td scope="row"><i class="{{this.categoryId.icon}}"></i><br><span>{{this.categoryId.name}}</span></td>
           {{!-- <td scope="row"><i class="fa-solid fa-house fa-2xl"></i></td> --}}
           <td>{{this.name}} <br>{{this.date}}</td>
           <td>
             <h2 class="amount" id="amount">{{this.amount}}</h2>
           </td>
           <td>
-            <a class="btn btn-primary" href="/news/{{this._id}}/edit">Edit</a>
+            <a class="btn btn-primary " href="/news/{{this._id}}/edit"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
           </td>
           <td>
-            <form action="/news/{{this._id}}/delete" method="POST"><button class="btn btn-danger"
-                type="submit">Delete</button>
+            <form action="/news/{{this._id}}/delete" method="POST"><button class="btn btn-danger" type="submit"><i
+                  class="fa-solid fa-trash-can"></i>Delete</button>
             </form>
           </td>
           </td>
@@ -32,6 +37,6 @@
       </tbody>
 
     </table>
-    <a class="block m-auto btn btn-warning " href="/news">Add new account</a>
+    <a class="block m-auto btn btn-warning " href="/news">Add New </a>
   </div>
 </div>

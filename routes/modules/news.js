@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const Recoder = require('../../models/recoder')
 const Category = require('../../models/category')
+const category = require('../../models/category')
 
 
 // 引用 Todo model
@@ -10,47 +11,64 @@ const Category = require('../../models/category')
 // 定義首頁路由
 
 router.get('/', (req, res) => {
-  Category.find()
-  .lean()
-  .then(categories =>  res.render('new',{categories}))
+  res.render('new')
 })
 
 router.post('/', (req, res) => {
-  const { name, date, categoryId, amount
+  const { name, date, category, amount
   } = req.body
-  Recoder.create({
-    name, date, categoryId, amount
+  Category.findOne({ name: category }).then(category => {
+    Recoder.create({
+      name,
+      date,
+      categoryId: category._id,
+      amount
+    })
+      .then(() => res.redirect('/'))
   })
-    .then(() => res.redirect('/'))
+
     .catch(err => console.log(err))
 })
 
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
-  
 
-  return Recoder.findById(id)
+  Recoder.findById(id).populate('categoryId')
     .lean()
-    .then(recoder => res.render('edit', { recoder }))
+    .then(recoder => {
+      const Noselectcategory = []
+      Category.find()
+        .then(categories => {
+
+          categories.filter(category => {
+            if (category.name !== recoder.categoryId.name) {
+              return Noselectcategory.push(category.name)
+            }
+          })
+        })
+        .then(() => res.render('edit', { recoder, Noselectcategory }))
+    })
     .catch(err => console.log(err))
 
 })
 
 router.post('/:id/edit', (req, res) => {
   const id = req.params.id
-  const { name, date, categoryId, amount
+  const { name, date, category, amount
   } = req.body
-  return Recoder.findById(id)
-    .then(recoder => {
-      recoder.name = name
-      recoder.date = date
-      recoder.categoryId = categoryId
-      recoder.amount = amount
-      return recoder.save()
+  Category.findOne({ name: category })
+    .then(category => {
+      Recoder.findById(id)
+        .then(recoder => {
+          recoder.name = name
+          recoder.date = date
+          recoder.categoryId = category._id
+          recoder.amount = amount
+          return recoder.save()
+        })
+        .then(() => res.redirect('/'))
     })
-    .then(() => res.redirect('/'))
     .catch(err => console.log(err))
-
 })
 
 

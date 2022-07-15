@@ -1,7 +1,7 @@
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
-      <h1 class="text-center mt-3">Login</h1>
+      <h1 class="text-center mt-3">New</h1>
 
       <form action="/news" method="POST">
         <div class="input-group mb-3">
@@ -13,12 +13,14 @@
             value="" min="2022-01-01" max="2099-12-31" required pattern="\d{4}-\d{2}-\d{2}">
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text">Category</span><select class="form-select" name="categoryId" id="categoryId"
+          <span class="input-group-text">Category</span><select class="form-select" name="category" id="category"
             aria-label="Example select with button addon">
-            <option selected>Choose...</option>
-            {{#each categories}}
-            <option value="{{this._id}}">{{this.name}}</option>
-            {{/each}}
+            <option>Choose...</option>
+            <option value="家居物業">家居物業</option>
+            <option value="交通出行">交通出行</option>
+            <option value="休閒娛樂">休閒娛樂</option>
+            <option value="餐飲食品">餐飲食品</option>
+            <option value="其他">其他</option>
           </select>
         </div>
         <div class="input-group mb-3">
