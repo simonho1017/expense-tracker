@@ -1,9 +1,10 @@
 const express = require('express')
-
+const session = require('express-session')
 const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose') // 載入 mongoose
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 
 const app = express()
 
@@ -23,9 +24,14 @@ db.once('open', () => {
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static('public'))
+usePassport(app)
 
 app.use(routes)
 

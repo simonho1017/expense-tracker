@@ -3,6 +3,7 @@ const router = express.Router()
 const Recoder = require('../../models/recoder')
 const Category = require('../../models/category')
 const User = require('../../models/user')
+const passport = require('passport')
 
 
 // 引用 Todo model
@@ -12,6 +13,17 @@ const User = require('../../models/user')
 router.get('/login', (req, res) => {
   res.render('login')
 })
+
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/users/login'
+}))
+
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/users/login')
+})
+
 
 router.get('/register', (req, res) => {
   res.render('register')
