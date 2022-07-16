@@ -9,9 +9,8 @@ const { authenticator } = require('../middleware/auth')  // 掛載 middleware
 
 // 將網址結構符合 / 字串的 request 導向 home 模組 
 
-
-router.use('/users', users)
 router.use('/news', authenticator, news)
+router.use('/users', users)
 router.use('/', authenticator, home)
 
 

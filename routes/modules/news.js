@@ -17,12 +17,14 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { name, date, category, amount
   } = req.body
+  const UserId = req.user._id
   Category.findOne({ name: category }).then(category => {
     Recoder.create({
       name,
       date,
       categoryId: category._id,
-      amount
+      amount,
+      UserId
     })
       .then(() => res.redirect('/'))
   })
@@ -31,9 +33,9 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-
-  Recoder.findById(id).populate('categoryId')
+  const _id = req.params.id
+  const UserId = req.user._id
+  Recoder.findOne({ _id, UserId }).populate('categoryId')
     .lean()
     .then(recoder => {
       const Noselectcategory = []
@@ -53,12 +55,13 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.post('/:id/edit', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, category, amount
   } = req.body
   Category.findOne({ name: category })
     .then(category => {
-      Recoder.findById(id)
+      Recoder.findOne({ _id, UserId })
         .then(recoder => {
           recoder.name = name
           recoder.date = date
@@ -73,8 +76,9 @@ router.post('/:id/edit', (req, res) => {
 
 
 router.post('/:id/delete', (req, res) => {
-  const id = req.params.id
-  return Recoder.findById(id)
+  const _id = req.params.id
+  const UserId = req.user._id
+  return Recoder.findOne({ _id, UserId })
     .then(recoder => recoder.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))

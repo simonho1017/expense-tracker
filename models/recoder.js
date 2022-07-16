@@ -19,12 +19,12 @@ const recoderSchema = new Schema({
     type: Number,
     required: true
   },
-  // icon:{
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Category',
-  //   index: true,
-  //   required: true
-  // }
+  UserId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
+  }
 })
 
 module.exports = mongoose.model('Recoder', recoderSchema)

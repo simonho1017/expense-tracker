@@ -4,6 +4,7 @@ const Recoder = require('../../models/recoder')
 const Category = require('../../models/category')
 const User = require('../../models/user')
 const passport = require('passport')
+const { Passport } = require('passport')
 
 
 // 引用 Todo model
@@ -15,12 +16,13 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/', failureMessage: true,
   failureRedirect: '/users/login'
 }))
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', 'Success Logout')
   res.redirect('/users/login')
 })
 
@@ -30,11 +32,29 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-  const { name, email, password, confimpassword } = req.body
+  const { name, email, password, confirmpassword } = req.body
+  const errors = []
+  if (!name || !email || !password || !confirmpassword) {
+    errors.push({ 'message': 'Write eveything' })
+  }
+  if (password !== confirmpassword) {
+    errors.push({ 'message': 'Check password again' })
+  }
+  if (errors.length) {
+    return res.render('register', { // 再附上表單參數
+      errors,
+      name,
+      email,
+      password,
+      confirmpassword
+    })
+  }
   User.findOne({ email }).then(user => {
+
     if (user) {
-      console.log('User already exists.')
+      errors.push({ 'message': 'User already exists.' })
       res.render('register', { // 再附上表單參數
+        errors,
         name,
         email,
         password,
